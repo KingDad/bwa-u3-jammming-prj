@@ -1,6 +1,5 @@
 const clientId = '8db4986109384a0c88a318860cc68dc8';
-//const redirectURI = 'http://localhost:3000/';
-const redirectURI = 'http://practiceapp.surge.sh/';
+const redirectURI = 'http://localhost:3000/';
 let accessToken = '';
 
 const Spotify = {
@@ -26,7 +25,7 @@ const Spotify = {
 
   search(searchTerm){
     const accessToken = Spotify.getAccessToken();
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {
+    if (searchTerm) {return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     }).then(response => {
       return response.json();
@@ -42,6 +41,7 @@ const Spotify = {
         uri: track.uri
       }));
     });
+  }
   },
 
   savePlaylist(playlistName, playlistTracks){

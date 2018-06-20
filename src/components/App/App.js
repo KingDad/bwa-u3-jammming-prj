@@ -44,9 +44,14 @@ class App extends Component {
   }
 
   searchSpotify(term){
-    Spotify.search(term).then(searchResults => {
+    if(!term){
+      Spotify.getAccessToken();
+    }
+    if(term){
+      Spotify.search(term).then(searchResults => {
       this.setState({searchResults: searchResults});
-    })
+    });
+  }
   }
 
   savePlaylist(){
